@@ -42,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/get/**").authenticated()
+                .antMatchers("/get/**", "/rest/**").authenticated()
                 .anyRequest().permitAll()
-                .and().formLogin().permitAll();
+                .and().formLogin().permitAll().and().formLogin().successForwardUrl("/get/projects");
     }
 
     private PasswordEncoder getPasswordEncoder() {

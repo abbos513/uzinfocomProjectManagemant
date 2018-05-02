@@ -14,8 +14,8 @@ public class MyUser {
     private String lastName;
     private String username;
     private String password;
-    @OneToOne
-    private Roles role;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Roles> role;
     @OneToMany(mappedBy = "projectManager")
     private List<Project> projects;
 
@@ -25,9 +25,10 @@ public class MyUser {
         this.id = (int)users.getId();
         this.firstName = users.getFirstName();
         this.lastName = users.getLastName();
-        this.username = users.getLastName();
+        this.username = users.getUsername();
         this.password = users.getPassword();
-
+        this.role= users.getRole();
+        this.projects = users.getProjects();
     }
 
     public MyUser(String firstName, String lastName, String username, String password, Roles role) {
@@ -35,14 +36,14 @@ public class MyUser {
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.role = role;
+        this.role = getRole();
     }
 
-    public Roles getRole() {
+    public List<Roles> getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(List<Roles> role) {
         this.role = role;
     }
 

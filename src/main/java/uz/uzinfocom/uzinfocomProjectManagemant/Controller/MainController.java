@@ -1,6 +1,8 @@
 package uz.uzinfocom.uzinfocomProjectManagemant.Controller;
 
+import org.hibernate.validator.constraints.EAN;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 //import static org.springframework.boot.context.ApplicationPidFileWriter.DEFAULT_FILE_NAME;
@@ -41,19 +44,25 @@ public class MainController {
     @Autowired
     RoleRepository roleRepository;
 
+
+//    @PreAuthorize("hasAnyRole('PM')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     private ModelAndView users (Model model){
 
-        model.addAttribute("allUsers", myUserRepository.findAll());
+        Iterable<MyUser> user = myUserRepository.findAll();
+        model.addAttribute("allUsers", user);
         return new ModelAndView("Users");
     }
 
+    @PreAuthorize("hasAnyRole('Registrar')")
     @RequestMapping(value = "/projects", method = RequestMethod.GET)
     private ModelAndView projects (Model model){
         LocalDate localDate = LocalDate.now();
-        model.addAttribute("projects", projectRepository.findAll());
-        model.addAttribute("projectManagers", myUserRepository.findAllByRole("PM"));
         model.addAttribute("currentDate", localDate);
+        if(projectRepository.findAll() != null)
+            model.addAttribute("projects", projectRepository.findAll());
+        if (myUserRepository.findAllByRole("PM") != null)
+            model.addAttribute("projectManagers", myUserRepository.findAllByRole("PM"));
 
         return new ModelAndView("Projects");
     }
@@ -97,32 +106,5 @@ public class MainController {
 
         return new ModelAndView("Projects");
     }
-
-//    @RequestMapping(value = "/download1")
-//    private ResponseEntity<InputStreamResource> downloadFile1(@RequestParam String fileName) throws IOException {
-// 
-//        MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);
-//        System.out.println("fileName: " + fileName);
-//        System.out.println("mediaType: " + mediaType);
-// 
-//        File file = new File(DIRECTORY + "/" + fileName);
-//        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-// 
-//        return ResponseEntity.ok()
-//                // Content-Disposition
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName())
-//                // Content-Type
-//                .contentType(mediaType)
-//                // Contet-Length
-//                .contentLength(file.length()) //
-//                .body(resource);
-//    }
-
-
-//@RequestMapping(value = "/download")
-//    private ResponseEntity<InputStreamResource> downloadFile(RequestParam(defaultValue = DEFAULT_FILE_NAME) String fileName) throws IOException{
-//
-//    }
-
 
 }

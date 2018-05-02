@@ -5,19 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>signUp</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Footer-Clean.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
-    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css" th:href="@{/bootstrap/css/bootstrap.min.css}" type="text/css">
+    <link rel="stylesheet" href="../static/css/Footer-Clean.css" th:href="@{/css/Footer-Clean.css}" type="text/css">
+    <link rel="stylesheet" href="../static/css/Navigation-with-Button.css" th:href="@{/css/Navigation-with-Button.css}" type="text/css">
+    <link rel="stylesheet" href="../static/css/Registration-Form-with-Photo.css" th:href="@{/css/Registration-Form-with-Photo.css}" type="text/css">
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}" type="text/css">
 </head>
 
 <body style="padding:0;margin:0;">
     <div>
         <nav class="navbar navbar-dark navbar-expand-md bg-success navigation-clean-button" style="background-color:#66d7d7;">
             <div class="container"><a class="navbar-brand" href="#">Company Name</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse"
-                    id="navcol-1">
+                <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav mr-auto"></ul><span class="navbar-text actions"> <a href="#" class="login">Log In</a><a class="btn btn-light action-button" role="button" href="#">Sign Up</a></span></div>
             </div>
         </nav>
@@ -45,8 +44,9 @@
         </div>
     </div>
     <div class="footer-clean" style="color:#fff;background-color:#28a745;"></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js" th:srs="@{/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+    <!--<script src="assets/bootstrap/js/bootstrap.min.js"></script>-->
 </body>
 
 </html>

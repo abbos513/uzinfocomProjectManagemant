@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import uz.uzinfocom.uzinfocomProjectManagemant.Entity.MyUser;
+import uz.uzinfocom.uzinfocomProjectManagemant.Entity.Roles;
 import uz.uzinfocom.uzinfocomProjectManagemant.Repository.MyUserRepository;
 
 import java.util.*;
@@ -35,7 +36,13 @@ public class CustomUserDetails extends MyUser implements UserDetails {
 //                .collect(Collectors.toList());
 
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(this.getRole().getRole()));
+
+        for (Roles role: this.getRole()) {
+
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRole()));
+
+        }
+
         return authorities;
     }
 
@@ -46,7 +53,7 @@ public class CustomUserDetails extends MyUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getUsername();
+        return super.getUsername();
     }
 
     @Override
